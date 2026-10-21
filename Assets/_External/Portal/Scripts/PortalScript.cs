@@ -16,6 +16,7 @@ public class PortalScript : MonoBehaviour
     [Tooltip("Resolution of the portal will be (screen / this)")]
     [SerializeField, Min(1)] float portalQuality = 1;
     [SerializeField] float screenDistanceMargin = 0.07f;
+    [SerializeField] float nearClipLimit = 0.05f;
     Camera portalCamera;
     List<Camera> portalDepthCameras;
     RenderTexture[] eyeTextures = new RenderTexture[2];
@@ -52,7 +53,7 @@ public class PortalScript : MonoBehaviour
 
         //float offset = cornerDistance * 1.5f + screenDistanceMargin;
         float offset = screenDistanceMargin;
-        int side = Math.Sign(SideOfPortal(playerCamera.transform.position));
+        int side = Math.Sign(SideOfPortal(GetHeadPosition()));
         screen1.transform.localPosition = new Vector3(0, 0, offset - (offset * side));
         screen2.transform.localPosition = new Vector3(0, 0, -offset - (offset * side));
     }
@@ -164,10 +165,13 @@ public class PortalScript : MonoBehaviour
     //}
 
     //implements oblique cliping as explained here https://www.youtube.com/watch?v=cWpFZbjtSQg at 13:14
-    void SetNearClipPlane(Camera camera)
+    void SetNearClipPlane(Camera camera, int dot)
     {
         Transform clipPlane = transform;
-        int dot = Math.Sign(Vector3.Dot(clipPlane.forward, transform.position - camera.transform.position));
+        float camSideDistance = Vector3.Dot(clipPlane.forward, camera.transform.position - clipPlane.position); //gets signed distance
+        bool onCorrectSide = Math.Sign(camSideDistance) == -dot; //check the side of the portal of the eye compared to the camera
+        if (!onCorrectSide || Mathf.Abs(camSideDistance) < nearClipLimit)
+            return;
 
         Vector3 cameraSpacePos = camera.worldToCameraMatrix.MultiplyPoint(clipPlane.position);
         Vector3 cameraSpaceNormal = camera.worldToCameraMatrix.MultiplyVector(clipPlane.forward) * dot;
@@ -183,12 +187,14 @@ public class PortalScript : MonoBehaviour
         screen2.enabled = false;
         CreatePortalTexture();
 
+        int clipSide = linkedPortal.SideOfPortal(GetHeadPosition()) >= 0 ? -1 : 1;
+
         for (int i = 0; i < 2; i++)
         {
             Camera.StereoscopicEye eye = (Camera.StereoscopicEye)i; //convert int to eye
             Matrix4x4 view = playerCamera.GetStereoViewMatrix(eye);
             Matrix4x4 projection = playerCamera.GetStereoProjectionMatrix(eye);
-
+            
             if (!VisibleFromCamera(linkedPortal.screen1, view, projection)) continue;
 
             Matrix4x4 eyeToWorld = view.inverse * Matrix4x4.Scale(new Vector3(1, 1, -1)); //basically playerCamera.transform.localToWorldMatrix. Invert to go view to world instead of the default world to view and scale for correct handedness
@@ -199,7 +205,7 @@ public class PortalScript : MonoBehaviour
 
             //set portalcamera to eye projection so SetNearClipPlane() sets it for the eye and not the screen
             portalCamera.projectionMatrix = projection;
-            SetNearClipPlane(portalCamera);
+            SetNearClipPlane(portalCamera, clipSide);
 
             linkedPortal.AvoidClipping();
             UniversalRenderPipeline.SubmitRenderRequest(portalCamera, new UniversalRenderPipeline.SingleCameraRequest());

@@ -209,7 +209,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: -0.5057089, y: 0, z: 0}
-  m_LocalScale: {x: 0.0134622, y: 1, z: 1.3646}
+  m_LocalScale: {x: 0.0134622, y: 1, z: 2.7765515}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 3439879969143560294}
@@ -321,7 +321,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0.5060502, y: 0, z: 0}
-  m_LocalScale: {x: 0.0134622, y: 1, z: 1.3646}
+  m_LocalScale: {x: 0.0134622, y: 1, z: 2.7765515}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 3439879969143560294}
@@ -594,7 +594,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: 0.7071068, w: 0.7071068}
   m_LocalPosition: {x: 0.0004033531, y: 0.5052738, z: 0}
-  m_LocalScale: {x: 0.011556751, y: 1.024445, z: 1.3646}
+  m_LocalScale: {x: 0.011556751, y: 1.024445, z: 2.7765515}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 3439879969143560294}
@@ -809,9 +809,9 @@ MonoBehaviour:
   playerCamera: {fileID: 0}
   screen1: {fileID: 1049282361290878586}
   screen2: {fileID: 6243836098866862555}
-  portalDepth: 3
   portalQuality: 1
-  screenDistanceMargin: 0.07
+  screenDistanceMargin: 1
+  nearClipLimit: 0.05
 --- !u!1 &9218613449354679695
 GameObject:
   m_ObjectHideFlags: 0

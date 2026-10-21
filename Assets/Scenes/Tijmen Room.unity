@@ -16776,6 +16776,9 @@ GameObject:
   - component: {fileID: 3967941220153992172}
   - component: {fileID: 1171465149692303035}
   - component: {fileID: 5573111313371834963}
+  - component: {fileID: 5573111313371834964}
+  - component: {fileID: 5573111313371834965}
+  - component: {fileID: 5573111313371834966}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -17789,6 +17792,73 @@ MonoBehaviour:
     m_VarianceClampScale: 0.9
     m_ContrastAdaptiveSharpening: 0
   m_Version: 2
+--- !u!114 &5573111313371834964
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 451074008507554059}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 79c45ffbcec49e54195646cb6c08fe8c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::XRPortalTraveller
+  previousOffsetFromPortal: {x: 0, y: 0, z: 0}
+  graphics: {fileID: 0}
+  hasSliceGraphics: 0
+  materials: []
+  cloneGraphics: {fileID: 0}
+  cloneMaterials: []
+  XROrigin: {fileID: 6140488902814369571}
+--- !u!135 &5573111313371834965
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 451074008507554059}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Radius: 0.1
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!54 &5573111313371834966
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 451074008507554059}
+  serializedVersion: 5
+  m_Mass: 1
+  m_LinearDamping: 0
+  m_AngularDamping: 0.05
+  m_CenterOfMass: {x: 0, y: 0, z: 0}
+  m_InertiaTensor: {x: 1, y: 1, z: 1}
+  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ImplicitCom: 1
+  m_ImplicitTensor: 1
+  m_UseGravity: 1
+  m_IsKinematic: 1
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
 --- !u!4 &6140488902814369571
 Transform:
   m_ObjectHideFlags: 0
