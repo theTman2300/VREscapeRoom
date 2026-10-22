@@ -1365,7 +1365,7 @@
     "m_ZTestMode": 4,
     "m_ZWriteControl": 0,
     "m_AlphaMode": 0,
-    "m_RenderFace": 0,
+    "m_RenderFace": 2,
     "m_AlphaClip": true,
     "m_CastShadows": true,
     "m_ReceiveShadows": true,
@@ -1789,8 +1789,8 @@
     "m_ObjectId": "b2d6a5127ee7447eafdb0b3372652655",
     "m_Title": "Slicing",
     "m_Position": {
-        "x": -1571.0,
-        "y": 136.00001525878907
+        "x": -1571.0001220703125,
+        "y": 136.00003051757813
     }
 }
 
@@ -1988,8 +1988,8 @@
     "m_ObjectId": "d15f084282e8411297c0958354698c5b",
     "m_Title": "Texture + color",
     "m_Position": {
-        "x": -532.0,
-        "y": -577.0
+        "x": -532.0001220703125,
+        "y": -576.9999389648438
     }
 }
 

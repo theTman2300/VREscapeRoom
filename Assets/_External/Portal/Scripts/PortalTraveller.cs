@@ -9,6 +9,9 @@ public class PortalTraveller : MonoBehaviour
     [HideInInspector] public Material[] materials;
     [HideInInspector] public GameObject cloneGraphics;
     [HideInInspector] public Material[] cloneMaterials;
+    public bool isHeld = false;
+    public bool isPlayer = false;
+    [HideInInspector] public int portalEnterSide;
 
     public virtual void Start()
     {

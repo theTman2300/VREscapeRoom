@@ -6662,6 +6662,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 5010905614370395172}
     m_Modifications:
+    - target: {fileID: 1532293616707693246, guid: cd26f816dc3274e05bdcd4f2e79fe1ec, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: 26284804541affb4faecfcd580a11248, type: 2}
     - target: {fileID: 5758756702848823750, guid: cd26f816dc3274e05bdcd4f2e79fe1ec, type: 3}
       propertyPath: m_Name
       value: VR_Hand_Yellow_Right
@@ -13798,6 +13802,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5626470289541500848, guid: 8ed7c4661c5c246c3b215268ec9f5cc5, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: 26284804541affb4faecfcd580a11248, type: 2}
     - target: {fileID: 9140324170777037684, guid: 8ed7c4661c5c246c3b215268ec9f5cc5, type: 3}
       propertyPath: m_Name
       value: VR_Hand_Yellow_Left
@@ -16723,6 +16731,9 @@ GameObject:
   - component: {fileID: 2585083446234198464}
   - component: {fileID: 2585083446234198466}
   - component: {fileID: 2585083446234198465}
+  - component: {fileID: 2585083446234198467}
+  - component: {fileID: 2585083446234198469}
+  - component: {fileID: 2585083446234198468}
   m_Layer: 0
   m_Name: Left Hand Controller
   m_TagString: Untagged
@@ -17405,6 +17416,75 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::ToggleInteractorComponents
   nearFarInteractor: {fileID: 1715599966}
   teleportInteractor: {fileID: 5508477951837408593}
+--- !u!114 &2585083446234198467
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 77148330930345655}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: be487ba5cf383e64cbdb494d0452ad25, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PortalTraveller
+  previousOffsetFromPortal: {x: 0, y: 0, z: 0}
+  graphics: {fileID: 225619493}
+  hasSliceGraphics: 1
+  materials: []
+  cloneGraphics: {fileID: 0}
+  cloneMaterials: []
+  isHeld: 1
+  isPlayer: 0
+  portalEnterSide: 0
+--- !u!135 &2585083446234198468
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 77148330930345655}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Radius: 0.2
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!54 &2585083446234198469
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 77148330930345655}
+  serializedVersion: 5
+  m_Mass: 1
+  m_LinearDamping: 0
+  m_AngularDamping: 0.05
+  m_CenterOfMass: {x: 0, y: 0, z: 0}
+  m_InertiaTensor: {x: 1, y: 1, z: 1}
+  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ImplicitCom: 1
+  m_ImplicitTensor: 1
+  m_UseGravity: 1
+  m_IsKinematic: 1
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
 --- !u!33 &2585757824231258796
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -17810,6 +17890,9 @@ MonoBehaviour:
   materials: []
   cloneGraphics: {fileID: 0}
   cloneMaterials: []
+  isHeld: 0
+  isPlayer: 1
+  portalEnterSide: 0
   XROrigin: {fileID: 6140488902814369571}
 --- !u!135 &5573111313371834965
 SphereCollider:
@@ -17826,7 +17909,7 @@ SphereCollider:
     serializedVersion: 2
     m_Bits: 0
   m_LayerOverridePriority: 0
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
@@ -18520,6 +18603,9 @@ GameObject:
   - component: {fileID: 8299348947959440004}
   - component: {fileID: 8299348947959440006}
   - component: {fileID: 8299348947959440005}
+  - component: {fileID: 8299348947959440009}
+  - component: {fileID: 8299348947959440008}
+  - component: {fileID: 8299348947959440007}
   m_Layer: 0
   m_Name: Right Hand Controller
   m_TagString: Untagged
@@ -18730,6 +18816,75 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::ToggleInteractorComponents
   nearFarInteractor: {fileID: 1704684792}
   teleportInteractor: {fileID: 7947818466574211522}
+--- !u!135 &8299348947959440007
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8299348947959440001}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Radius: 0.2
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!54 &8299348947959440008
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8299348947959440001}
+  serializedVersion: 5
+  m_Mass: 1
+  m_LinearDamping: 0
+  m_AngularDamping: 0.05
+  m_CenterOfMass: {x: 0, y: 0, z: 0}
+  m_InertiaTensor: {x: 1, y: 1, z: 1}
+  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ImplicitCom: 1
+  m_ImplicitTensor: 1
+  m_UseGravity: 1
+  m_IsKinematic: 1
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
+--- !u!114 &8299348947959440009
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8299348947959440001}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: be487ba5cf383e64cbdb494d0452ad25, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PortalTraveller
+  previousOffsetFromPortal: {x: 0, y: 0, z: 0}
+  graphics: {fileID: 812456608}
+  hasSliceGraphics: 1
+  materials: []
+  cloneGraphics: {fileID: 0}
+  cloneMaterials: []
+  isHeld: 1
+  isPlayer: 0
+  portalEnterSide: 0
 --- !u!1 &8383060912462212553
 GameObject:
   m_ObjectHideFlags: 0

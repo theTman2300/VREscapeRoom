@@ -1,5 +1,7 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
+using UnityEditor;
 using UnityEngine;
 using UnityEngine.PlayerLoop;
 using UnityEngine.Rendering;
@@ -110,6 +112,7 @@ public class PortalScript : MonoBehaviour
 
     private void Update()
     {
+
         for (int i = 0; i < trackedTravellers.Count; i++)
         {
             PortalTraveller traveller = trackedTravellers[i];
@@ -119,7 +122,7 @@ public class PortalScript : MonoBehaviour
             int portalSide = Math.Sign(Vector3.Dot(offsetFromPortal, transform.forward));
             int portalSideOld = Math.Sign(Vector3.Dot(traveller.previousOffsetFromPortal, transform.forward));
 
-            if (portalSide != portalSideOld)
+            if (portalSide != portalSideOld && !traveller.isHeld)
             {
                 Matrix4x4 m = linkedPortal.transform.localToWorldMatrix * transform.worldToLocalMatrix * travellerTransform.localToWorldMatrix;
                 traveller.Teleport(transform, linkedPortal.transform, m.GetColumn(3), m.rotation);
@@ -128,6 +131,27 @@ public class PortalScript : MonoBehaviour
                 linkedPortal.AvoidClipping();
                 trackedTravellers.RemoveAt(i);
                 i--;
+
+                if (traveller.isPlayer)
+                {
+                    int heldSide = -Math.Sign(SideOfPortal(GetHeadPosition()));
+
+                    //all the heldTravellers that are not currently being tracked
+                    //PortalTraveller[] heldTravellers = GameObject.FindObjectsByType<PortalTraveller>(FindObjectsSortMode.None).Where(
+                    //    x => x.isHeld).ToArray();
+
+                    for (int j = 0; j < trackedTravellers.Count; j++)
+                    {
+                        if (!trackedTravellers[j].isHeld) continue;
+                            linkedPortal.OnTravellerEnterPortal(trackedTravellers[j], heldSide);
+                            trackedTravellers.RemoveAt(j);
+                            j--;
+                    }
+
+                    //because the loop item was changed without the top loop knowing
+                    Update();
+                    return;
+                }
             }
             else
             {
@@ -142,8 +166,17 @@ public class PortalScript : MonoBehaviour
 
         Matrix4x4 m = linkedPortal.transform.localToWorldMatrix * transform.worldToLocalMatrix * traveller.graphics.transform.localToWorldMatrix;
         traveller.cloneGraphics.transform.SetPositionAndRotation(m.GetColumn(3), m.rotation);
+        int side;
+        if (traveller.isHeld)
+        {
+            //side = Math.Sign(SideOfPortal(GetHeadPosition()));
+            side = traveller.portalEnterSide;
+        }
+        else
+        {
+            side = Math.Sign(SideOfPortal(traveller.transform.position));
+        }
 
-        int side = Math.Sign(SideOfPortal(traveller.transform.position));
         Vector3 sliceNormal = transform.forward * side;
         Vector3 cloneSliceNormal = linkedPortal.transform.forward * -side;
 
@@ -216,12 +249,18 @@ public class PortalScript : MonoBehaviour
         screen2.enabled = true;
     }
 
+    void UpdateSlices()
+    {
+        for (int i = 0; i < trackedTravellers.Count; i++)
+            UpdateSlice(trackedTravellers[i]);
+    }
+
     private void Render(ScriptableRenderContext context, Camera camera)
     {
         if (playerCamera == null || camera != playerCamera) return;
 
-        for (int i = 0; i < trackedTravellers.Count; i++)
-            UpdateSlice(trackedTravellers[i]);
+        UpdateSlices();
+        linkedPortal.UpdateSlices();
 
         AvoidClipping();
         SetScreensOffset();
@@ -231,56 +270,6 @@ public class PortalScript : MonoBehaviour
             RenderVR();
         }
         else return;
-
-        //if (!VisibleFromCamera(linkedPortal.screen1, playerCamera)) return;
-
-        //screen1.enabled = false;
-        //screen2.enabled = false;
-        //CreatePortalTexture();
-
-        ////----set camera positions
-        //// with (linkedPortal.transform.worldToLocalMatrix * playerCamera.localToWorldMatrix) you get a relative position,
-        //// and then by multiplying that with (transform.localToWorldMatrix) you place it back to world space but relative to this portal
-        //Matrix4x4 m = transform.localToWorldMatrix * linkedPortal.transform.worldToLocalMatrix * playerCamera.transform.localToWorldMatrix;
-        //portalCamera.transform.SetPositionAndRotation(m.GetColumn(3), m.rotation);
-        //SetNearClipPlane(portalCamera);
-        ////for (int i = 0; i < portalDepthCameras.Count; i++)
-        ////{
-        ////    Camera previousCamera = i == 0 ? portalCamera : portalDepthCameras[i - 1];
-        ////    Matrix4x4 mDepth = transform.localToWorldMatrix * linkedPortal.transform.worldToLocalMatrix * previousCamera.transform.localToWorldMatrix;
-        ////    portalDepthCameras[i].transform.SetPositionAndRotation(mDepth.GetColumn(3), mDepth.rotation);
-        ////    SetNearClipPlane(portalDepthCameras[i]);
-        ////}
-
-        ////----render camera's
-        //linkedPortal.AvoidClipping(portalCamera.transform.position);
-        ////int visibleDepth = portalDepth;
-        ////for (int i = portalDepthCameras.Count - 1; i >= 0; i--)
-        ////{
-        ////    if (!VisibleFromCamera(linkedPortal.screen1, portalDepthCameras[i]))
-        ////        visibleDepth--;
-        ////}
-        ////bool deepestCamera = true;
-        //////render in backwards order for correct effect
-        ////for (int i = portalDepth - 1; i >= 0; i--)
-        ////{
-        ////    //if statement instead of changing for loop for debugging purposes
-        ////    if (i > visibleDepth)
-        ////    {
-        ////        //Debug.Log("Skipped at depth: " + (i + 1) + "   " + name);
-        ////        continue;
-        ////    }
-        ////    SetFallback(deepestCamera);
-        ////    deepestCamera = false;
-        ////    UniversalRenderPipeline.SubmitRenderRequest(portalDepthCameras[i], new UniversalRenderPipeline.SingleCameraRequest());
-        ////}
-
-        //SetFallback(false);
-        //UniversalRenderPipeline.SubmitRenderRequest(portalCamera, new UniversalRenderPipeline.SingleCameraRequest());
-        //linkedPortal.AvoidClipping(playerCamera.transform.position);
-
-        //screen1.enabled = true;
-        //screen2.enabled = true;
     }
 
     void OnTravellerEnterPortal(PortalTraveller traveller)
@@ -289,6 +278,21 @@ public class PortalScript : MonoBehaviour
         {
             traveller.EnterPortalThreshold();
             traveller.previousOffsetFromPortal = traveller.transform.position - transform.position;
+            traveller.portalEnterSide = Math.Sign(SideOfPortal(traveller.transform.position));
+            trackedTravellers.Add(traveller);
+        }
+    }
+
+    /// <summary>
+    /// Used for when these items are teleporte together with the player
+    /// </summary>
+    void OnTravellerEnterPortal(PortalTraveller traveller, int portalEnterSide)
+    {
+        if (!trackedTravellers.Contains(traveller))
+        {
+            traveller.EnterPortalThreshold();
+            traveller.previousOffsetFromPortal = traveller.transform.position - transform.position;
+            traveller.portalEnterSide = portalEnterSide;
             trackedTravellers.Add(traveller);
         }
     }
@@ -313,24 +317,29 @@ public class PortalScript : MonoBehaviour
         }
     }
 
+    void OnTravellerExitPortal(PortalTraveller traveller)
+    {
+        traveller.ExitPortalThreshold();
+        trackedTravellers.Remove(traveller);
+
+        if (traveller.hasSliceGraphics)
+        {
+            for (int i = 0; i < traveller.materials.Length; i++)
+            {
+                traveller.materials[i].SetVector("_sliceCenter", new Vector3(-1000000, 0, 0));
+                traveller.materials[i].SetVector("_sliceNormal", new Vector3(1, 0, 0));
+
+                traveller.cloneMaterials[i].SetVector("_sliceCenter", new Vector3(-1000000, 0, 0));
+                traveller.cloneMaterials[i].SetVector("_sliceNormal", new Vector3(1, 0, 0));
+            }
+        }
+    }
+
     private void OnTriggerExit(Collider other)
     {
         if (other.TryGetComponent(out PortalTraveller traveller) && trackedTravellers.Contains(traveller))
         {
-            traveller.ExitPortalThreshold();
-            trackedTravellers.Remove(traveller);
-
-            if (traveller.hasSliceGraphics)
-            {
-                for (int i = 0; i < traveller.materials.Length; i++)
-                {
-                    traveller.materials[i].SetVector("_sliceCenter", new Vector3(-1000000, 0, 0));
-                    traveller.materials[i].SetVector("_sliceNormal", new Vector3(1, 0, 0));
-
-                    traveller.cloneMaterials[i].SetVector("_sliceCenter", new Vector3(-1000000, 0, 0));
-                    traveller.cloneMaterials[i].SetVector("_sliceNormal", new Vector3(1, 0, 0));
-                }
-            }
+            OnTravellerExitPortal(traveller);
         }
     }
 
