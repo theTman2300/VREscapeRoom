@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using UnityEditor.PackageManager;
 using UnityEngine;
 
 public class PortalTraveller : MonoBehaviour
@@ -10,8 +11,11 @@ public class PortalTraveller : MonoBehaviour
     [HideInInspector] public GameObject cloneGraphics;
     [HideInInspector] public Material[] cloneMaterials;
     public bool isHeld = false;
+    [HideInInspector] public bool wasHeld = false;
     public bool isPlayer = false;
     [HideInInspector] public int portalEnterSide;
+
+    bool shouldShowCloneGraphics = false;
 
     public virtual void Start()
     {
@@ -37,13 +41,27 @@ public class PortalTraveller : MonoBehaviour
     public virtual void EnterPortalThreshold()
     {
         if (graphics != null)
+        {
+            shouldShowCloneGraphics = true;
+            if (!graphics.activeSelf)
+            {
+                return;
+            }
             cloneGraphics.gameObject.SetActive(true);
+        }
     }
 
     public virtual void ExitPortalThreshold()
     {
         if (graphics != null)
+        {
+            shouldShowCloneGraphics = false;
+            if (!graphics.activeSelf)
+            {
+                return;
+            }
             cloneGraphics.gameObject.SetActive(false);
+        }
     }
 
     Material[] GetMaterials(GameObject g)
@@ -78,5 +96,51 @@ public class PortalTraveller : MonoBehaviour
         }
 
         return materialList.ToArray();
+    }
+
+    void OnGraphicsToggle(bool state)
+    {
+        if (!state)
+        {
+            cloneGraphics.gameObject.SetActive(false);
+            return;
+        }
+
+        if (graphics != null)
+            cloneGraphics.gameObject.SetActive(shouldShowCloneGraphics);
+    }
+
+    public void SetIsHeld(bool state)
+    {
+        isHeld = state;
+
+        if (!state)
+            wasHeld = true;
+    }
+
+    private void OnEnable()
+    {
+        if (!hasSliceGraphics)
+            return;
+
+        if (graphics.TryGetComponent(out ObjectEnableDisableEvent eventScript))
+        {
+            eventScript.OnObjectEnableDisable += OnGraphicsToggle;
+        }
+        else
+        {
+            graphics.AddComponent<ObjectEnableDisableEvent>().OnObjectEnableDisable += OnGraphicsToggle;
+        }
+    }
+
+    private void OnDisable()
+    {
+        if (!hasSliceGraphics)
+            return;
+
+        if (graphics.TryGetComponent(out ObjectEnableDisableEvent eventScript))
+        {
+            eventScript.OnObjectEnableDisable -= OnGraphicsToggle;
+        }
     }
 }

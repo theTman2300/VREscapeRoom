@@ -122,8 +122,9 @@ public class PortalScript : MonoBehaviour
             int portalSide = Math.Sign(Vector3.Dot(offsetFromPortal, transform.forward));
             int portalSideOld = Math.Sign(Vector3.Dot(traveller.previousOffsetFromPortal, transform.forward));
 
-            if (portalSide != portalSideOld && !traveller.isHeld)
+            if (((portalSide != portalSideOld) || (traveller.wasHeld && portalSide != traveller.portalEnterSide)) && !traveller.isHeld)
             {
+                traveller.wasHeld = false;
                 Matrix4x4 m = linkedPortal.transform.localToWorldMatrix * transform.worldToLocalMatrix * travellerTransform.localToWorldMatrix;
                 traveller.Teleport(transform, linkedPortal.transform, m.GetColumn(3), m.rotation);
 
