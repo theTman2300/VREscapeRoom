@@ -85,7 +85,7 @@ public class PortalScript : MonoBehaviour
         {
             RenderTexture currentEyeTexture = eyeTextures[i];
             if (currentEyeTexture != null && currentEyeTexture.width == eyeWidth && currentEyeTexture.height == eyeHeight) continue;
-            if (currentEyeTexture != null ) { currentEyeTexture.Release(); Destroy(currentEyeTexture); }
+            if (currentEyeTexture != null) { currentEyeTexture.Release(); Destroy(currentEyeTexture); }
             eyeTextures[i] = new RenderTexture(eyeWidth, eyeHeight, 24);
             changedResolution = true;
         }
@@ -144,9 +144,9 @@ public class PortalScript : MonoBehaviour
                     for (int j = 0; j < trackedTravellers.Count; j++)
                     {
                         if (!trackedTravellers[j].isHeld) continue;
-                            linkedPortal.OnTravellerEnterPortal(trackedTravellers[j], heldSide);
-                            trackedTravellers.RemoveAt(j);
-                            j--;
+                        linkedPortal.OnTravellerEnterPortal(trackedTravellers[j], heldSide);
+                        trackedTravellers.RemoveAt(j);
+                        j--;
                     }
 
                     //because the loop item was changed without the top loop knowing
@@ -228,7 +228,7 @@ public class PortalScript : MonoBehaviour
             Camera.StereoscopicEye eye = (Camera.StereoscopicEye)i; //convert int to eye
             Matrix4x4 view = playerCamera.GetStereoViewMatrix(eye);
             Matrix4x4 projection = playerCamera.GetStereoProjectionMatrix(eye);
-            
+
             if (!VisibleFromCamera(linkedPortal.screen1, view, projection)) continue;
 
             Matrix4x4 eyeToWorld = view.inverse * Matrix4x4.Scale(new Vector3(1, 1, -1)); //basically playerCamera.transform.localToWorldMatrix. Invert to go view to world instead of the default world to view and scale for correct handedness
@@ -352,5 +352,38 @@ public class PortalScript : MonoBehaviour
     private void OnDisable()
     {
         RenderPipelineManager.beginCameraRendering -= Render;
+    }
+
+
+    int lineResolution = 40;
+    private void OnDrawGizmosSelected()
+    {
+        if (linkedPortal == null) return;
+        //draw a cubic bezier curve between the two portals
+        Gizmos.color = Color.red;
+
+        Vector3 p1 = transform.position;
+        Vector3 p2 = transform.position + transform.forward * 3;
+        Vector3 p3 = linkedPortal.transform.position - linkedPortal.transform.forward * 3;
+        Vector3 p4 = linkedPortal.transform.position;
+
+        Vector3[] linePoints = new Vector3[lineResolution];
+        for (int i = 0; i < lineResolution; i++)
+        {
+            float t = (float)i / lineResolution;
+            Vector3 p12 = Vector3.Lerp(p1, p2, t);
+            Vector3 p23 = Vector3.Lerp(p2, p3, t);
+            Vector3 p34 = Vector3.Lerp(p3, p4, t);
+
+            Vector3 p12_23 = Vector3.Lerp(p12, p23, t);
+            Vector3 p23_34 = Vector3.Lerp(p23, p34, t);
+            linePoints[i] = Vector3.Lerp(p12_23, p23_34, t);
+        }
+
+        for (int i = 0; i < lineResolution - 1; i++)
+        {
+            Gizmos.DrawLine(linePoints[i], linePoints[i + 1]);
+        }
+        Gizmos.DrawLine(linePoints[lineResolution - 1], linkedPortal.transform.position);
     }
 }
