@@ -22,7 +22,10 @@ public class PortalTraveller : MonoBehaviour
         materials = GetMaterials(graphics);
 
         if (graphics == null)
-            Debug.LogWarning("No graphics assigned for portalTraveller: " + name);
+        {
+            if (hasSliceGraphics)
+                Debug.LogWarning("No graphics assigned for portalTraveller: " + name);
+        }
         else
         {
             cloneGraphics = Instantiate(graphics, transform);
