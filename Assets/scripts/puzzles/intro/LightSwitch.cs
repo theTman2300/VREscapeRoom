@@ -19,7 +19,7 @@ public class LightSwitch : MonoBehaviour
         float angle = transform.eulerAngles.z;
         JointSpring spring = joint.spring;
 
-        if (angle > 90)
+        if (angle > 75)
         {
             spring.targetPosition = joint.limits.max;
         }
