@@ -9,6 +9,7 @@ public class ClipperLock : MonoBehaviour
     [SerializeField] GameObject key;
     [SerializeField] GameObject keyBase;
     [SerializeField] XRSocketInteractor socketInteractor;
+    [SerializeField] GameObject clippers;
 
     public void KeyInserted()
     {
@@ -30,6 +31,7 @@ public class ClipperLock : MonoBehaviour
     public void OnLockAnimation()
     {
         //release clippers here
-        Debug.Log("Clippers released");
+        clippers.GetComponent<XRGrabInteractable>().enabled = true;
+        clippers.GetComponent<Rigidbody>().isKinematic = false;
     }
 }
