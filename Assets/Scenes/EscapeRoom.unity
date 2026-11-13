@@ -5471,7 +5471,7 @@ HingeJoint:
     min: -118.05776
     max: 0
     bounciness: 0
-    bounceMinVelocity: 0.2
+    bounceMinVelocity: 0.05
     contactDistance: 3
   m_BreakForce: Infinity
   m_BreakTorque: Infinity
@@ -11674,7 +11674,7 @@ HingeJoint:
     min: 0
     max: 153.31589
     bounciness: 0
-    bounceMinVelocity: 0.2
+    bounceMinVelocity: 0.05
     contactDistance: 3
   m_BreakForce: Infinity
   m_BreakTorque: Infinity
@@ -16174,7 +16174,7 @@ HingeJoint:
     min: 0
     max: 133.58806
     bounciness: 0
-    bounceMinVelocity: 0.2
+    bounceMinVelocity: 0.05
     contactDistance: 3
   m_BreakForce: Infinity
   m_BreakTorque: Infinity
@@ -37593,7 +37593,7 @@ HingeJoint:
     min: -152.19196
     max: 0
     bounciness: 0
-    bounceMinVelocity: 0.2
+    bounceMinVelocity: 0.05
     contactDistance: 3
   m_BreakForce: Infinity
   m_BreakTorque: Infinity
