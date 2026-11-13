@@ -5291,7 +5291,7 @@ Rigidbody:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 186071262}
   serializedVersion: 5
-  m_Mass: 20
+  m_Mass: 5
   m_LinearDamping: 0
   m_AngularDamping: 0.05
   m_CenterOfMass: {x: 0, y: 0, z: 0}
@@ -5468,14 +5468,14 @@ HingeJoint:
   m_ExtendedLimits: 0
   m_UseAcceleration: 0
   m_Limits:
-    min: -189.42804
+    min: -118.05776
     max: 0
     bounciness: 0
     bounceMinVelocity: 0.2
-    contactDistance: 0
+    contactDistance: 3
   m_BreakForce: Infinity
   m_BreakTorque: Infinity
-  m_EnableCollision: 1
+  m_EnableCollision: 0
   m_EnablePreprocessing: 1
   m_MassScale: 1
   m_ConnectedMassScale: 1
@@ -9847,7 +9847,7 @@ ConfigurableJoint:
   m_LinearLimit:
     limit: 0.4
     bounciness: 0
-    contactDistance: 0
+    contactDistance: 3
   m_AngularXLimitSpring:
     spring: 0
     damper: 0
@@ -9887,12 +9887,12 @@ ConfigurableJoint:
   m_ZDrive:
     serializedVersion: 4
     positionSpring: 0
-    positionDamper: 1
-    maximumForce: 3.4028233e+38
+    positionDamper: 2
+    maximumForce: 1
     useAcceleration: 0
   m_TargetRotation: {x: 0, y: 0, z: 0, w: 1}
   m_TargetAngularVelocity: {x: 0, y: 0, z: 0}
-  m_RotationDriveMode: 0
+  m_RotationDriveMode: 1
   m_AngularXDrive:
     serializedVersion: 4
     positionSpring: 0
@@ -9909,7 +9909,7 @@ ConfigurableJoint:
     serializedVersion: 4
     positionSpring: 0
     positionDamper: 0
-    maximumForce: 3.4028233e+38
+    maximumForce: 0
     useAcceleration: 0
   m_ProjectionMode: 0
   m_ProjectionDistance: 0.1
@@ -9930,7 +9930,7 @@ Rigidbody:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 395961910}
   serializedVersion: 5
-  m_Mass: 10
+  m_Mass: 5
   m_LinearDamping: 0
   m_AngularDamping: 0.05
   m_CenterOfMass: {x: 0, y: 0, z: 0}
@@ -9947,7 +9947,7 @@ Rigidbody:
   m_UseGravity: 0
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 0
+  m_Constraints: 124
   m_CollisionDetection: 0
 --- !u!114 &395961914
 MonoBehaviour:
@@ -11494,7 +11494,7 @@ Rigidbody:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 455643723}
   serializedVersion: 5
-  m_Mass: 20
+  m_Mass: 5
   m_LinearDamping: 0
   m_AngularDamping: 0.05
   m_CenterOfMass: {x: 0, y: 0, z: 0}
@@ -11675,10 +11675,10 @@ HingeJoint:
     max: 153.31589
     bounciness: 0
     bounceMinVelocity: 0.2
-    contactDistance: 0
+    contactDistance: 3
   m_BreakForce: Infinity
   m_BreakTorque: Infinity
-  m_EnableCollision: 1
+  m_EnableCollision: 0
   m_EnablePreprocessing: 1
   m_MassScale: 1
   m_ConnectedMassScale: 1
@@ -14642,7 +14642,7 @@ ConfigurableJoint:
   m_LinearLimit:
     limit: 0.4
     bounciness: 0
-    contactDistance: 0
+    contactDistance: 3
   m_AngularXLimitSpring:
     spring: 0
     damper: 0
@@ -14682,12 +14682,12 @@ ConfigurableJoint:
   m_ZDrive:
     serializedVersion: 4
     positionSpring: 0
-    positionDamper: 1
-    maximumForce: 3.4028233e+38
+    positionDamper: 2
+    maximumForce: 1
     useAcceleration: 0
   m_TargetRotation: {x: 0, y: 0, z: 0, w: 1}
   m_TargetAngularVelocity: {x: 0, y: 0, z: 0}
-  m_RotationDriveMode: 0
+  m_RotationDriveMode: 1
   m_AngularXDrive:
     serializedVersion: 4
     positionSpring: 0
@@ -14704,7 +14704,7 @@ ConfigurableJoint:
     serializedVersion: 4
     positionSpring: 0
     positionDamper: 0
-    maximumForce: 3.4028233e+38
+    maximumForce: 0
     useAcceleration: 0
   m_ProjectionMode: 0
   m_ProjectionDistance: 0.1
@@ -14725,7 +14725,7 @@ Rigidbody:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 587336720}
   serializedVersion: 5
-  m_Mass: 10
+  m_Mass: 5
   m_LinearDamping: 0
   m_AngularDamping: 0.05
   m_CenterOfMass: {x: 0, y: 0, z: 0}
@@ -14742,8 +14742,8 @@ Rigidbody:
   m_UseGravity: 0
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 0
-  m_CollisionDetection: 0
+  m_Constraints: 124
+  m_CollisionDetection: 2
 --- !u!114 &587336724
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -15994,7 +15994,7 @@ Rigidbody:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 663882170}
   serializedVersion: 5
-  m_Mass: 20
+  m_Mass: 5
   m_LinearDamping: 0
   m_AngularDamping: 0.05
   m_CenterOfMass: {x: 0, y: 0, z: 0}
@@ -16175,10 +16175,10 @@ HingeJoint:
     max: 133.58806
     bounciness: 0
     bounceMinVelocity: 0.2
-    contactDistance: 0
+    contactDistance: 3
   m_BreakForce: Infinity
   m_BreakTorque: Infinity
-  m_EnableCollision: 1
+  m_EnableCollision: 0
   m_EnablePreprocessing: 1
   m_MassScale: 1
   m_ConnectedMassScale: 1
@@ -18136,7 +18136,7 @@ Rigidbody:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 765000527}
   serializedVersion: 5
-  m_Mass: 1
+  m_Mass: 2
   m_LinearDamping: 0
   m_AngularDamping: 0.05
   m_CenterOfMass: {x: 0, y: 0, z: 0}
@@ -20737,7 +20737,7 @@ ConfigurableJoint:
   m_LinearLimit:
     limit: 0.4
     bounciness: 0
-    contactDistance: 0
+    contactDistance: 3
   m_AngularXLimitSpring:
     spring: 0
     damper: 0
@@ -20777,12 +20777,12 @@ ConfigurableJoint:
   m_ZDrive:
     serializedVersion: 4
     positionSpring: 0
-    positionDamper: 1
-    maximumForce: 3.4028233e+38
+    positionDamper: 2
+    maximumForce: 1
     useAcceleration: 0
   m_TargetRotation: {x: 0, y: 0, z: 0, w: 1}
   m_TargetAngularVelocity: {x: 0, y: 0, z: 0}
-  m_RotationDriveMode: 0
+  m_RotationDriveMode: 1
   m_AngularXDrive:
     serializedVersion: 4
     positionSpring: 0
@@ -20799,7 +20799,7 @@ ConfigurableJoint:
     serializedVersion: 4
     positionSpring: 0
     positionDamper: 0
-    maximumForce: 3.4028233e+38
+    maximumForce: 0
     useAcceleration: 0
   m_ProjectionMode: 0
   m_ProjectionDistance: 0.1
@@ -20820,7 +20820,7 @@ Rigidbody:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 880106393}
   serializedVersion: 5
-  m_Mass: 10
+  m_Mass: 5
   m_LinearDamping: 0
   m_AngularDamping: 0.05
   m_CenterOfMass: {x: 0, y: 0, z: 0}
@@ -20837,8 +20837,8 @@ Rigidbody:
   m_UseGravity: 0
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 0
-  m_CollisionDetection: 0
+  m_Constraints: 124
+  m_CollisionDetection: 2
 --- !u!114 &880106397
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -21029,6 +21029,10 @@ PrefabInstance:
     - target: {fileID: 5297622750261687500, guid: 4dd8615a75a310b4e932331c9a5fa4af, type: 3}
       propertyPath: m_Center.z
       value: 0.06
+      objectReference: {fileID: 0}
+    - target: {fileID: 7152942649410771434, guid: 4dd8615a75a310b4e932331c9a5fa4af, type: 3}
+      propertyPath: m_Mass
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7152942649410771434, guid: 4dd8615a75a310b4e932331c9a5fa4af, type: 3}
       propertyPath: m_IsKinematic
@@ -26696,7 +26700,7 @@ ConfigurableJoint:
   m_LinearLimit:
     limit: 0.4
     bounciness: 0
-    contactDistance: 0
+    contactDistance: 3
   m_AngularXLimitSpring:
     spring: 0
     damper: 0
@@ -26736,12 +26740,12 @@ ConfigurableJoint:
   m_ZDrive:
     serializedVersion: 4
     positionSpring: 0
-    positionDamper: 1
-    maximumForce: 3.4028233e+38
+    positionDamper: 2
+    maximumForce: 1
     useAcceleration: 0
   m_TargetRotation: {x: 0, y: 0, z: 0, w: 1}
   m_TargetAngularVelocity: {x: 0, y: 0, z: 0}
-  m_RotationDriveMode: 0
+  m_RotationDriveMode: 1
   m_AngularXDrive:
     serializedVersion: 4
     positionSpring: 0
@@ -26758,7 +26762,7 @@ ConfigurableJoint:
     serializedVersion: 4
     positionSpring: 0
     positionDamper: 0
-    maximumForce: 3.4028233e+38
+    maximumForce: 0
     useAcceleration: 0
   m_ProjectionMode: 0
   m_ProjectionDistance: 0.1
@@ -26779,7 +26783,7 @@ Rigidbody:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1232036033}
   serializedVersion: 5
-  m_Mass: 10
+  m_Mass: 5
   m_LinearDamping: 0
   m_AngularDamping: 0.05
   m_CenterOfMass: {x: 0, y: 0, z: 0}
@@ -26796,8 +26800,8 @@ Rigidbody:
   m_UseGravity: 0
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 0
-  m_CollisionDetection: 0
+  m_Constraints: 124
+  m_CollisionDetection: 2
 --- !u!114 &1232036037
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -37053,7 +37057,7 @@ ConfigurableJoint:
   m_LinearLimit:
     limit: 0.4
     bounciness: 0
-    contactDistance: 0
+    contactDistance: 3
   m_AngularXLimitSpring:
     spring: 0
     damper: 0
@@ -37093,12 +37097,12 @@ ConfigurableJoint:
   m_ZDrive:
     serializedVersion: 4
     positionSpring: 0
-    positionDamper: 1
-    maximumForce: 3.4028233e+38
+    positionDamper: 2
+    maximumForce: 1
     useAcceleration: 0
   m_TargetRotation: {x: 0, y: 0, z: 0, w: 1}
   m_TargetAngularVelocity: {x: 0, y: 0, z: 0}
-  m_RotationDriveMode: 0
+  m_RotationDriveMode: 1
   m_AngularXDrive:
     serializedVersion: 4
     positionSpring: 0
@@ -37115,7 +37119,7 @@ ConfigurableJoint:
     serializedVersion: 4
     positionSpring: 0
     positionDamper: 0
-    maximumForce: 3.4028233e+38
+    maximumForce: 0
     useAcceleration: 0
   m_ProjectionMode: 0
   m_ProjectionDistance: 0.1
@@ -37136,7 +37140,7 @@ Rigidbody:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1747521149}
   serializedVersion: 5
-  m_Mass: 10
+  m_Mass: 5
   m_LinearDamping: 0
   m_AngularDamping: 0.05
   m_CenterOfMass: {x: 0, y: 0, z: 0}
@@ -37153,7 +37157,7 @@ Rigidbody:
   m_UseGravity: 0
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 0
+  m_Constraints: 124
   m_CollisionDetection: 0
 --- !u!114 &1747521153
 MonoBehaviour:
@@ -37409,7 +37413,7 @@ Rigidbody:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1750513767}
   serializedVersion: 5
-  m_Mass: 20
+  m_Mass: 5
   m_LinearDamping: 0
   m_AngularDamping: 0.05
   m_CenterOfMass: {x: 0, y: 0, z: 0}
@@ -37590,10 +37594,10 @@ HingeJoint:
     max: 0
     bounciness: 0
     bounceMinVelocity: 0.2
-    contactDistance: 0
+    contactDistance: 3
   m_BreakForce: Infinity
   m_BreakTorque: Infinity
-  m_EnableCollision: 1
+  m_EnableCollision: 0
   m_EnablePreprocessing: 1
   m_MassScale: 1
   m_ConnectedMassScale: 1
@@ -40018,7 +40022,7 @@ ConfigurableJoint:
   m_LinearLimit:
     limit: 0.4
     bounciness: 0
-    contactDistance: 0
+    contactDistance: 3
   m_AngularXLimitSpring:
     spring: 0
     damper: 0
@@ -40058,12 +40062,12 @@ ConfigurableJoint:
   m_ZDrive:
     serializedVersion: 4
     positionSpring: 0
-    positionDamper: 1
-    maximumForce: 3.4028233e+38
+    positionDamper: 2
+    maximumForce: 1
     useAcceleration: 0
   m_TargetRotation: {x: 0, y: 0, z: 0, w: 1}
   m_TargetAngularVelocity: {x: 0, y: 0, z: 0}
-  m_RotationDriveMode: 0
+  m_RotationDriveMode: 1
   m_AngularXDrive:
     serializedVersion: 4
     positionSpring: 0
@@ -40080,7 +40084,7 @@ ConfigurableJoint:
     serializedVersion: 4
     positionSpring: 0
     positionDamper: 0
-    maximumForce: 3.4028233e+38
+    maximumForce: 0
     useAcceleration: 0
   m_ProjectionMode: 0
   m_ProjectionDistance: 0.1
@@ -40101,7 +40105,7 @@ Rigidbody:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1879312577}
   serializedVersion: 5
-  m_Mass: 10
+  m_Mass: 5
   m_LinearDamping: 0
   m_AngularDamping: 0.05
   m_CenterOfMass: {x: 0, y: 0, z: 0}
@@ -40118,7 +40122,7 @@ Rigidbody:
   m_UseGravity: 0
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 0
+  m_Constraints: 124
   m_CollisionDetection: 0
 --- !u!114 &1879312581
 MonoBehaviour:
@@ -40799,7 +40803,7 @@ ConfigurableJoint:
   m_LinearLimit:
     limit: 0.4
     bounciness: 0
-    contactDistance: 0
+    contactDistance: 3
   m_AngularXLimitSpring:
     spring: 0
     damper: 0
@@ -40839,12 +40843,12 @@ ConfigurableJoint:
   m_ZDrive:
     serializedVersion: 4
     positionSpring: 0
-    positionDamper: 1
-    maximumForce: 3.4028233e+38
+    positionDamper: 2
+    maximumForce: 1
     useAcceleration: 0
   m_TargetRotation: {x: 0, y: 0, z: 0, w: 1}
   m_TargetAngularVelocity: {x: 0, y: 0, z: 0}
-  m_RotationDriveMode: 0
+  m_RotationDriveMode: 1
   m_AngularXDrive:
     serializedVersion: 4
     positionSpring: 0
@@ -40861,7 +40865,7 @@ ConfigurableJoint:
     serializedVersion: 4
     positionSpring: 0
     positionDamper: 0
-    maximumForce: 3.4028233e+38
+    maximumForce: 0
     useAcceleration: 0
   m_ProjectionMode: 0
   m_ProjectionDistance: 0.1
@@ -40882,7 +40886,7 @@ Rigidbody:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1914153906}
   serializedVersion: 5
-  m_Mass: 10
+  m_Mass: 5
   m_LinearDamping: 0
   m_AngularDamping: 0.05
   m_CenterOfMass: {x: 0, y: 0, z: 0}
@@ -40899,8 +40903,8 @@ Rigidbody:
   m_UseGravity: 0
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 0
-  m_CollisionDetection: 0
+  m_Constraints: 124
+  m_CollisionDetection: 2
 --- !u!114 &1914153910
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -41309,6 +41313,10 @@ PrefabInstance:
       propertyPath: graphics
       value: 
       objectReference: {fileID: 2011030887}
+    - target: {fileID: 7152942649410771434, guid: 4dd8615a75a310b4e932331c9a5fa4af, type: 3}
+      propertyPath: m_Mass
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 7942457647871423232, guid: 4dd8615a75a310b4e932331c9a5fa4af, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0.64498
@@ -41348,6 +41356,14 @@ PrefabInstance:
     - target: {fileID: 7942457647871423232, guid: 4dd8615a75a310b4e932331c9a5fa4af, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 89.294
+      objectReference: {fileID: 0}
+    - target: {fileID: 8811959923048629005, guid: 4dd8615a75a310b4e932331c9a5fa4af, type: 3}
+      propertyPath: m_LimitLinearVelocity
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8811959923048629005, guid: 4dd8615a75a310b4e932331c9a5fa4af, type: 3}
+      propertyPath: m_LimitAngularVelocity
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8811959923048629005, guid: 4dd8615a75a310b4e932331c9a5fa4af, type: 3}
       propertyPath: m_InteractionLayers.m_Bits
@@ -42635,7 +42651,7 @@ Rigidbody:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1997174568}
   serializedVersion: 5
-  m_Mass: 10
+  m_Mass: 5
   m_LinearDamping: 0
   m_AngularDamping: 0.05
   m_CenterOfMass: {x: 0, y: 0, z: 0}
@@ -42652,7 +42668,7 @@ Rigidbody:
   m_UseGravity: 0
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 0
+  m_Constraints: 124
   m_CollisionDetection: 0
 --- !u!153 &1997174572
 ConfigurableJoint:
@@ -42681,7 +42697,7 @@ ConfigurableJoint:
   m_LinearLimit:
     limit: 0.4
     bounciness: 0
-    contactDistance: 0
+    contactDistance: 3
   m_AngularXLimitSpring:
     spring: 0
     damper: 0
@@ -42721,12 +42737,12 @@ ConfigurableJoint:
   m_ZDrive:
     serializedVersion: 4
     positionSpring: 0
-    positionDamper: 1
-    maximumForce: 3.4028233e+38
+    positionDamper: 2
+    maximumForce: 1
     useAcceleration: 0
   m_TargetRotation: {x: 0, y: 0, z: 0, w: 1}
   m_TargetAngularVelocity: {x: 0, y: 0, z: 0}
-  m_RotationDriveMode: 0
+  m_RotationDriveMode: 1
   m_AngularXDrive:
     serializedVersion: 4
     positionSpring: 0
@@ -42743,7 +42759,7 @@ ConfigurableJoint:
     serializedVersion: 4
     positionSpring: 0
     positionDamper: 0
-    maximumForce: 3.4028233e+38
+    maximumForce: 0
     useAcceleration: 0
   m_ProjectionMode: 0
   m_ProjectionDistance: 0.1
@@ -47318,6 +47334,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1570691889}
     m_Modifications:
+    - target: {fileID: 7152942649410771434, guid: 4dd8615a75a310b4e932331c9a5fa4af, type: 3}
+      propertyPath: m_Mass
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 7942457647871423232, guid: 4dd8615a75a310b4e932331c9a5fa4af, type: 3}
       propertyPath: m_LocalPosition.x
       value: -1.564
