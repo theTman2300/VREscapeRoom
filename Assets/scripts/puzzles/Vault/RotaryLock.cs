@@ -42,7 +42,6 @@ public class RotaryLock : MonoBehaviour
             {
                 text.text = "-";
             }
-            //currentInput = -69420; //random number that you can't reach
         }
     }
 
