@@ -12,6 +12,7 @@ TagManager:
   - Flame
   - Trail
   - Leaf
+  - Clippers
   layers:
   - Default
   - TransparentFX
