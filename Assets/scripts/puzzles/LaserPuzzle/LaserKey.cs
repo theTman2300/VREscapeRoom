@@ -15,6 +15,7 @@ public class LaserKey : MonoBehaviour
     [SerializeField] float minimumKeyPressPercent = 0.1f;
     [SerializeField, Range(0, 1)] float inputDepthPercent = 0.65f;
     [SerializeField, Range(0, 1)] float depressPercent = 0.5f;
+    [SerializeField, Range(0, 1)] float smoothing = 0.1f;
     [SerializeField] char keyCharacter = 'a';
     [SerializeField] TextMeshPro characterText;
     [Space]
@@ -33,14 +34,18 @@ public class LaserKey : MonoBehaviour
 
     private void Update()
     {
-        if (!isTouchingKey) return;
-        
-        if (Physics.BoxCast(keyParent.position - new Vector3(0, downExtends, 0), new(key.localScale.x, .01f, key.localScale.z), Vector3.up, out RaycastHit hit , key.rotation, keyHeight + downExtends + 0.005f, interactionMask))
+        if (!isTouchingKey)
+        {
+            keyParent.localScale = new(keyParent.localScale.x, Mathf.Lerp(keyParent.localScale.y, 1, 1 - smoothing), keyParent.localScale.z);
+            return;
+        }
+
+        if (Physics.BoxCast(keyParent.position - new Vector3(0, downExtends, 0), new(key.localScale.x, .01f, key.localScale.z), Vector3.up, out RaycastHit hit, key.rotation, keyHeight + downExtends + 0.005f, interactionMask))
         {
             if (hit.point.y < keyParent.position.y && !isPressed) return; //avoid button pressing down when hand is put underneath it
 
             float pressPercent = Mathf.Clamp((hit.point.y - key.position.y) / keyHeight, minimumKeyPressPercent, 1);
-            keyParent.localScale = new(keyParent.localScale.x, pressPercent, keyParent.localScale.z);
+            keyParent.localScale = new(keyParent.localScale.x, Mathf.Lerp(keyParent.localScale.y, pressPercent, 1 - smoothing), keyParent.localScale.z);
 
             if (1 - pressPercent >= inputDepthPercent)
             {
@@ -54,12 +59,12 @@ public class LaserKey : MonoBehaviour
             else if (1 - pressPercent <= depressPercent)
             {
                 isPressed = false;
-            }            
+            }
         }
         else
         {
             isPressed = false;
-            keyParent.localScale = new(keyParent.localScale.x, 1, keyParent.localScale.z);
+            keyParent.localScale = new(keyParent.localScale.x, Mathf.Lerp(keyParent.localScale.y, 1, 1 - smoothing), keyParent.localScale.z);
         }
     }
 
@@ -71,7 +76,6 @@ public class LaserKey : MonoBehaviour
     private void OnTriggerExit(Collider other)
     {
         isTouchingKey = false;
-        keyParent.localScale = new(keyParent.localScale.x, 1, keyParent.localScale.z);
         isPressed = false;
     }
 

@@ -16,7 +16,7 @@ TagManager:
   - Default
   - TransparentFX
   - Ignore Raycast
-  - 
+  - Player
   - Water
   - UI
   - 
@@ -26,7 +26,7 @@ TagManager:
   - GrabbableObject
   - NoObjectInteract
   - LaserKeyboard
-  - 
+  - IgnorePlayer
   - 
   - 
   - 
