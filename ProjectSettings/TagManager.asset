@@ -13,6 +13,7 @@ TagManager:
   - Trail
   - Leaf
   - Clippers
+  - WireRepairTool
   layers:
   - Default
   - TransparentFX

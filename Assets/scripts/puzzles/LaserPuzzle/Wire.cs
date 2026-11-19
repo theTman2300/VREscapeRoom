@@ -9,26 +9,36 @@ using UnityEngine.XR.Interaction.Toolkit.Interactables;
 [RequireComponent(typeof(LineRenderer))]
 public class Wire : MonoBehaviour
 {
-    [SerializeField] float maxClipperToPointDistance = 0.1f;
-    [SerializeField] float snipGap = 0.05f;
-    [SerializeField] UnityEvent OnCableSnip = new();
+    [SerializeField] int[] modifyLasers;
+    [SerializeField] float maxToolToPointDistance = 0.1f;
+    [SerializeField] float wireGap = 0.05f;
+    [Header("Events")]
+    [SerializeField] UnityEvent<int[]> OnCableSnip = new();
+    [SerializeField] UnityEvent<int[]> OnWireRepair = new();
 
-    bool clippersNearby = false;
-    bool canSnip = false;
+    bool wireActive = false;
     GameObject currentClippers;
+    GameObject currentRepairTool;
+
+    bool isCut = false;
+    Vector3 cutPosition = Vector3.zero;
 
     LineRenderer lr1;
     LineRenderer lr2;
+    LineRenderer lr3;
 
     private void Start()
     {
         lr1 = GetComponent<LineRenderer>();
         lr2 = transform.Find("Wire2Object").GetComponent<LineRenderer>();
+        lr3 = transform.Find("Wire3Object").GetComponent<LineRenderer>();
+        lr2.enabled = false;
+        lr3.enabled = false;
     }
 
     void OnClipperUse(ActivateEventArgs eventArgs)
     {
-        if (!canSnip) return;
+        if (!wireActive || isCut) return;
         float closestDistance = Mathf.Infinity;
         Vector3 closestPosition = default;
         int closestPositionIndex = 0;
@@ -44,53 +54,84 @@ public class Wire : MonoBehaviour
                 closestPositionIndex = i;
             }
         }
-        if (closestDistance > maxClipperToPointDistance || closestPositionIndex == 0 || closestPositionIndex == lr1.positionCount - 1)
+        if (closestDistance > maxToolToPointDistance || closestPositionIndex == 0 || closestPositionIndex == lr1.positionCount - 1)
         {
             return;
         }
 
-        canSnip = false;
-        OnCableSnip.Invoke();
-
-        List<Vector3> lr1Positions = new();
-        for (int i = 0; i < closestPositionIndex; i++)
-        {
-            lr1Positions.Add(lr1.GetPosition(i));
-        }
-        lr1Positions.Add(lr1.GetPosition(closestPositionIndex) - (lr1.GetPosition(closestPositionIndex) - lr1.GetPosition(closestPositionIndex - 1)).normalized * snipGap);
+        isCut = true;
+        OnCableSnip.Invoke(modifyLasers);
+        cutPosition = closestPosition;
 
         List<Vector3> lr2Positions = new();
-        lr2Positions.Add(lr1.GetPosition(closestPositionIndex) - (lr1.GetPosition(closestPositionIndex) - lr1.GetPosition(closestPositionIndex + 1)).normalized * snipGap);
-        for (int i = closestPositionIndex + 1; i < lr1.positionCount; i++)
+        for (int i = 0; i < closestPositionIndex; i++)
         {
             lr2Positions.Add(lr1.GetPosition(i));
         }
+        lr2Positions.Add(lr1.GetPosition(closestPositionIndex) - (lr1.GetPosition(closestPositionIndex) - lr1.GetPosition(closestPositionIndex - 1)).normalized * wireGap);
 
-        lr1.positionCount = lr1Positions.Count;
-        lr1.SetPositions(lr1Positions.ToArray());
+        List<Vector3> lr3Positions = new();
+        lr3Positions.Add(lr1.GetPosition(closestPositionIndex) - (lr1.GetPosition(closestPositionIndex) - lr1.GetPosition(closestPositionIndex + 1)).normalized * wireGap);
+        for (int i = closestPositionIndex + 1; i < lr1.positionCount; i++)
+        {
+            lr3Positions.Add(lr1.GetPosition(i));
+        }
+
         lr2.positionCount = lr2Positions.Count;
         lr2.SetPositions(lr2Positions.ToArray());
+        lr3.positionCount = lr3Positions.Count;
+        lr3.SetPositions(lr3Positions.ToArray());
+        lr1.enabled = false;
+        lr2.enabled = true;
+        lr3.enabled = true;
     }
 
-    public void ActiveWire()
+    void OnRepairToolUse(ActivateEventArgs eventArgs)
     {
-        canSnip = true;
+        if (!wireActive || !isCut) return;
+        if (Vector3.Distance(currentRepairTool.transform.position, cutPosition) > maxToolToPointDistance) return;
+
+        isCut = false;
+        OnWireRepair.Invoke(modifyLasers);
+
+        lr1.enabled = true;
+        lr2.enabled = false;
+        lr3.enabled = false;
+    }
+
+    public void SetWireActive(bool state)
+    {
+        wireActive = state;
     }
 
     private void OnTriggerEnter(Collider other)
     {
-        if (!canSnip) return;
-        if (!other.CompareTag("Clippers")) return;
-        other.gameObject.GetComponent<XRGrabInteractable>().activated.AddListener(OnClipperUse);
-        currentClippers = other.gameObject;
+        if (!wireActive) return;
+        if (other.CompareTag("Clippers"))
+        {
+            other.gameObject.GetComponent<XRGrabInteractable>().activated.AddListener(OnClipperUse);
+            currentClippers = other.gameObject;
+        }
+        if (other.CompareTag("WireRepairTool"))
+        {
+            other.gameObject.GetComponent<XRGrabInteractable>().activated.AddListener(OnRepairToolUse);
+            currentRepairTool = other.gameObject;
+        }
     }
 
     private void OnTriggerExit(Collider other)
     {
-        if (!canSnip) return;
-        if (!other.CompareTag("Clippers")) return;
-        other.gameObject.GetComponent<XRGrabInteractable>().activated.RemoveListener(OnClipperUse);
-        currentClippers = null;
+        if (!wireActive) return;
+        if (other.CompareTag("Clippers"))
+        {
+            other.gameObject.GetComponent<XRGrabInteractable>().activated.RemoveListener(OnClipperUse);
+            currentClippers = null;
+        }
+        if (other.CompareTag("WireRepairTool"))
+        {
+            other.gameObject.GetComponent<XRGrabInteractable>().activated.RemoveListener(OnRepairToolUse);
+            currentRepairTool = null;
+        }
     }
 
     private void OnDisable()
@@ -98,6 +139,10 @@ public class Wire : MonoBehaviour
         if (currentClippers != null)
         {
             currentClippers.gameObject.GetComponent<XRGrabInteractable>().activated.RemoveListener(OnClipperUse);
+        }
+        if (currentRepairTool != null)
+        {
+            currentRepairTool.gameObject.GetComponent<XRGrabInteractable>().activated.RemoveListener(OnRepairToolUse);
         }
     }
 }
