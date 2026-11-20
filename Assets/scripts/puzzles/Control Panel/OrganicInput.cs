@@ -1,3 +1,4 @@
+using NaughtyAttributes;
 using System.Collections.Generic;
 using UnityEditor.UIElements;
 using UnityEngine;
@@ -19,8 +20,10 @@ public class OrganicInput : MonoBehaviour
     Rigidbody currentRigidbody;
     List<GameObject> gameObjectsInTrigger;
 
+    [Button]
     public bool CheckCorrectObject()
     {
+        Debug.Log("Test correct object: " + currentObject.CompareTag(correctObjectTag));
         return currentObject.CompareTag(correctObjectTag);
     }
 
