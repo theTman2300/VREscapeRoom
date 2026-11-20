@@ -15,6 +15,7 @@ GameObject:
   - component: {fileID: 9012996045934104551}
   - component: {fileID: 3995570801021284657}
   - component: {fileID: 344392356960155726}
+  - component: {fileID: 2756264313588848696}
   m_Layer: 10
   m_Name: Grabbable_Object
   m_TagString: Untagged
@@ -153,6 +154,18 @@ MonoBehaviour:
         m_TargetAssemblyTypeName: ObjectPortalTraveller, Assembly-CSharp
         m_MethodName: SetIsHeld
         m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 2756264313588848696}
+        m_TargetAssemblyTypeName: SetGravityOnRelease, Assembly-CSharp
+        m_MethodName: OnDeselect
+        m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -374,6 +387,18 @@ MonoBehaviour:
   wasHeld: 0
   isPlayer: 0
   portalEnterSide: 0
+--- !u!114 &2756264313588848696
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8943497656985847958}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 84ecdaf10023d954383b2c7b2dc2117a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::SetGravityOnRelease
 --- !u!1001 &8253185038872651651
 PrefabInstance:
   m_ObjectHideFlags: 0
