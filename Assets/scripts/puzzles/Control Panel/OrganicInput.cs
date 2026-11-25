@@ -24,6 +24,7 @@ public class OrganicInput : MonoBehaviour
     [Button]
     public bool CheckCorrectObject()
     {
+        if (currentObject == null) return false;
         Debug.Log("Test correct object: " + currentObject.CompareTag(correctObjectTag));
         return currentObject.CompareTag(correctObjectTag);
     }

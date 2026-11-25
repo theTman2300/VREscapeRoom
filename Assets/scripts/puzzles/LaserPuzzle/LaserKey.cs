@@ -17,6 +17,7 @@ public class LaserKey : MonoBehaviour
     [SerializeField, Range(0, 1)] float depressPercent = 0.5f;
     [SerializeField, Range(0, 1)] float smoothing = 0.1f;
     [SerializeField] char keyCharacter = 'a';
+    [SerializeField] bool autoSetCharacter = true;
     [SerializeField] TextMeshPro characterText;
     [Space]
     [SerializeField] UnityEvent<string> OnKeyPressed = new();
@@ -28,7 +29,8 @@ public class LaserKey : MonoBehaviour
     private void Start()
     {
         keyHeight = key.localScale.y;
-        characterText.text = keyCharacter.ToString().ToLower();
+        if (autoSetCharacter)
+            characterText.text = keyCharacter.ToString().ToLower();
         GetComponent<BoxCollider>().size = new(key.localScale.x, GetComponent<BoxCollider>().size.y, key.localScale.z);
     }
 

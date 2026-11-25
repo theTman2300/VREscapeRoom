@@ -27,13 +27,19 @@ public class SatelliteLever : MonoBehaviour
 
     void Update()
     {
-        float t = (1 - Vector3.Distance(leverJoint.transform.position, topPosition)) / (jointLimit * 2);
+        float t = 1 - (Vector3.Distance(leverJoint.transform.position, topPosition) / (jointLimit * 2));
         int selectedNumber = Mathf.RoundToInt(t * maxValue);
 
         if (selectedNumber != lastSelectedNumber)
         {
             OnNumberChange.Invoke();
             displayText.text = selectedNumber.ToString();
+            lastSelectedNumber = selectedNumber;
         }
+    }
+
+    public int GetCurrentInput()
+    {
+        return lastSelectedNumber;
     }
 }
