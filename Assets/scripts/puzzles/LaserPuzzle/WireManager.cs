@@ -1,3 +1,4 @@
+using TMPro;
 using UnityEngine;
 using UnityEngine.Events;
 
@@ -5,48 +6,80 @@ public class WireManager : MonoBehaviour
 {
     [SerializeField] GameObject[] lasers;
     [SerializeField] UnityEvent OnLasersDisable = new();
+    [Space]
+    [SerializeField] int wireAmount;
+    [SerializeField] TextMeshPro countdownText;
+    [SerializeField] int countdownSeconds;
+    [SerializeField] Color failColor;
+    [SerializeField] Color succesColor;
 
-    bool[] laserStates;
+    Color defaultTextColor;
+
     bool wirePuzzleActive = true;
+    bool isCountingDown = false;
+    int cutWireCount = 0;
+    float countdownTimer = 0;
 
     private void Start()
     {
-        laserStates = new bool[lasers.Length];
-        for (int i = 0; i < laserStates.Length; i++)
-        {
-            laserStates[i] = true;
-        }
-
+        defaultTextColor = countdownText.color;
+        countdownText.text = countdownSeconds.ToString();
     }
 
-    public void OnWireChange(int[] modifyLasers)
+    public void OnWireCut()
     {
         if (!wirePuzzleActive) return;
-        if (modifyLasers.Length == 0)
+
+        if (cutWireCount == 0 && !isCountingDown)
         {
-            Debug.Log("A wire had no assigned modifyLasers");
-            return;
+            isCountingDown = true;
+            countdownTimer = countdownSeconds;
         }
 
-        foreach (int i in modifyLasers)
-        {
-            laserStates[i - 1] = !laserStates[i - 1];
-            lasers[i - 1].SetActive(laserStates[i - 1]);
-        }
+        cutWireCount++;
 
-        if (!IsLaserwallActive())
+        if (isCountingDown && cutWireCount >= wireAmount)
         {
-            OnLasersDisable.Invoke();
-            wirePuzzleActive = false;
+            DisableLaserwall();
         }
     }
 
-    bool IsLaserwallActive()
+    public void OnWireRepair()
     {
-        foreach (bool laserState in laserStates)
+        if (!wirePuzzleActive) return;
+
+        cutWireCount--;
+
+        if (!isCountingDown && cutWireCount == 0)
         {
-            if (laserState) return true;
+            countdownText.color = defaultTextColor;
+            countdownText.text = countdownSeconds.ToString();
         }
-        return false;
+    }
+
+    private void Update()
+    {
+        if (!wirePuzzleActive) return;
+        if (!isCountingDown) return;
+
+        countdownTimer -= Time.deltaTime;
+        countdownText.text = Mathf.Ceil(countdownTimer).ToString();
+        if (countdownTimer <= 0)
+        {
+            isCountingDown = false;
+            countdownText.color = failColor;
+        }
+    }
+
+    void DisableLaserwall()
+    {
+        wirePuzzleActive = false;
+        countdownText.color = succesColor;
+
+        foreach (GameObject laser in lasers)
+        {
+            laser.SetActive(false);
+        }
+        OnLasersDisable.Invoke();
     }
 }

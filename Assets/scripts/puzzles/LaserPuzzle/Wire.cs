@@ -9,12 +9,12 @@ using UnityEngine.XR.Interaction.Toolkit.Interactables;
 [RequireComponent(typeof(LineRenderer))]
 public class Wire : MonoBehaviour
 {
-    [SerializeField] int[] modifyLasers;
+    //[SerializeField] int[] modifyLasers;
     [SerializeField] float maxToolToPointDistance = 0.1f;
     [SerializeField] float wireGap = 0.05f;
     [Header("Events")]
-    [SerializeField] UnityEvent<int[]> OnCableSnip = new();
-    [SerializeField] UnityEvent<int[]> OnWireRepair = new();
+    [SerializeField] UnityEvent OnCableSnip = new();
+    [SerializeField] UnityEvent OnWireRepair = new();
 
     bool wireActive = false;
     GameObject currentClippers;
@@ -60,7 +60,7 @@ public class Wire : MonoBehaviour
         }
 
         isCut = true;
-        OnCableSnip.Invoke(modifyLasers);
+        OnCableSnip.Invoke();
         cutPosition = closestPosition;
 
         List<Vector3> lr2Positions = new();
@@ -92,7 +92,7 @@ public class Wire : MonoBehaviour
         if (Vector3.Distance(currentRepairTool.transform.position, cutPosition) > maxToolToPointDistance) return;
 
         isCut = false;
-        OnWireRepair.Invoke(modifyLasers);
+        OnWireRepair.Invoke();
 
         lr1.enabled = true;
         lr2.enabled = false;
